@@ -16,6 +16,10 @@ const string SEARCH_RESULTS = "Search Results";
 
 int main() {
     AddressBook *addressBook = new AddressBook();
+    // Data Persistence: Read contact information from existing file.
+    ifstream file_in(".AddressBook.dat", ios::binary | ios::in);
+    addressBook->load(file_in);
+    file_in.close();
     AddressBook *searchResults;
     string searchTerms;
     srand (time(NULL));
@@ -54,6 +58,10 @@ int main() {
         }
     } while (!isQuit);
     cout << "Thank you for using AddressBook. Good bye!\n\n";
+    // Data Persistence: Write contact information to external file.
+    ofstream file_out(".AddressBook.dat", ios::binary | ios::out);
+    addressBook->save(file_out);
+    file_out.close();
 	delete addressBook;
     return 0;
 }

@@ -204,3 +204,69 @@ bool AddressBook :: isEmpty() const {
 }
 
 
+void AddressBook :: load(ifstream &file_in) {
+    size_t size;
+    if (file_in.is_open()) {
+        int num_contacts;
+        file_in.read((char*)&num_contacts, sizeof(num_contacts));
+        for (int i = 0; i < num_contacts; i++) {
+            string firstname;
+            file_in.read((char*)&size, sizeof(size));
+            firstname.resize(size);
+            file_in.read((char*)&firstname[0], size);
+
+            string lastname;
+            file_in.read((char*)&size, sizeof(size));
+            lastname.resize(size);
+            file_in.read((char*)&lastname[0], size);
+
+            string phone;
+            file_in.read((char*)&size, sizeof(size));
+            phone.resize(size);
+            file_in.read((char*)&phone[0], size);
+
+            string address;
+            file_in.read((char*)&size, sizeof(size));
+            address.resize(size);
+            file_in.read((char*)&address[0], size);
+
+            addPerson(firstname, lastname, phone, address);
+        }
+        file_in.close();
+    } else cerr << "Could not read from file .AddressBook.dat\n";
+}
+
+
+void AddressBook :: save(ofstream &file_out) {
+    size_t size;
+    if (file_out.is_open()) {
+        int num_contacts = getLength();
+        file_out.write((char*)&num_contacts, sizeof(num_contacts));
+        Person *curr = head;
+        while (curr != nullptr) {
+            string firstname = curr->getFirstName();
+            size = firstname.size();
+            file_out.write((char*)&size, sizeof(size));
+            file_out.write(firstname.c_str(), size);
+
+            string lastname = curr->getLastName();
+            size = lastname.size();
+            file_out.write((char*)&size, sizeof(size));
+            file_out.write(lastname.c_str(), size);
+
+            string phone = curr->getPhone();
+            size = phone.size();
+            file_out.write((char*)&size, sizeof(size));
+            file_out.write(phone.c_str(), size);
+
+            string address = curr->getAddress();
+            size = address.size();
+            file_out.write((char*)&size, sizeof(size));
+            file_out.write(address.c_str(), size);
+
+            curr = curr->getNext();
+        }
+    } else cerr << "Could not write to file .AddressBook.dat\n";
+}
+
+

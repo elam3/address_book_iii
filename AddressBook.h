@@ -1,9 +1,12 @@
 #ifndef ADDRESS_BOOK_H
 #define ADDRESS_BOOK_H
-#include "Person.h"
-#include <string>
-#include <iostream>
+
+#include <fstream>
 #include <iomanip>
+#include <iostream>
+#include <string>
+
+#include "Person.h"
 using namespace std;
 class AddressBook {
 
@@ -46,6 +49,9 @@ public:
      * newPerson - data from newPerson will overwrite existing data
      * Note: blank entries in newPerson is skipped. */
     void updatePerson(Person *target, Person *newPerson);
+
+    void load(ifstream &file_in);
+    void save(ofstream &file_out);
 
 private:
     Person *head;
