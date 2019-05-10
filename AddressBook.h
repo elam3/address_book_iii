@@ -1,10 +1,13 @@
 #ifndef ADDRESS_BOOK_H
 #define ADDRESS_BOOK_H
 
+#include <algorithm>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <iterator>
 #include <string>
+#include <vector>
 
 #include "Person.h"
 using namespace std;
@@ -14,8 +17,7 @@ public:
     AddressBook();
     ~AddressBook();
 
-    /** Appends source to the end */
-	void addPerson(Person *source);
+	void addPerson(Person *source);  // Appends source to the end
 
     void addPerson(string _firstname, string _lastname, string _phone,
             string _address);
@@ -23,8 +25,7 @@ public:
 	bool isEmpty() const;
 	string remove(const string query);
 
-    /** sorts in ascending order by Person::compare */
-	void sort();
+	void sort();  // sorts in ascending order by Person::compare
 
     /** appends a copy of Person nodes that had a match
      *      between its toString and query using string::find
@@ -54,6 +55,6 @@ public:
     void save(ofstream &file_out);
 
 private:
-    Person *head;
+    vector<Person*> addressBook;
 };
 #endif

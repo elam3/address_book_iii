@@ -5,7 +5,6 @@ Person :: Person() {
     lastname = getRandLastName();
     phone = getRandPhone();
     address = getRandAddress();
-    next = nullptr;
 }
 
 
@@ -14,13 +13,10 @@ Person :: Person (string firstname, string lastname, string phone, string addres
 	this->lastname = lastname;
 	this->phone = phone;
 	this->address = address;
-	next = nullptr;
 }
 
 
-Person :: ~Person() {
-    next = nullptr;
-}
+Person :: ~Person() { }
 
 
 string Person :: getFirstName() const {
@@ -43,11 +39,6 @@ string Person :: getAddress() const {
 }
 
 
-Person* Person :: getNext() const {
-    return next;
-}
-
-
 void Person :: setFirstName(const string firstname) {
     this->firstname = firstname;
 }
@@ -65,11 +56,6 @@ void Person :: setPhone(const string phone) {
 
 void Person :: setAddress(const string address) {
     this->address = address;
-}
-
-
-void Person :: setNext(Person *next) {
-    this->next = next;
 }
 
 
